@@ -40,3 +40,66 @@ However, you may use other tech if you are more comfortable with something else.
 * Return your solution within 5 business days, unless other directions provided.
 * Feel free to ask questions at any time. Questions are welcome!
 * Have fun with it! Your application can be as simple or complex as possible.
+
+# Solution
+
+## Setup
+
+### Local Machine (Macbook Pro)
+
+#### Github
+git clone https://github.com/comrade813/ods-coding-assignment.git
+
+#### NPM, NodeJS, and React
+// I already had this installed, but you can use the Node Version Manager (nvm).
+cd ods-coding-assignment
+npx create-react-app frontend --template typescript
+npm i --save react-select
+npm i --save axios
+
+#### Flask
+
+#### PostgreSQL
+Open pgAdmin
+Create database "ods"
+Create schema "flight_data"
+Create table "flights" with appropriate columns (see SQL script)
+
+### AWS
+// Website hosted on a cheap Linux server
+Create the most basic Ubuntu 22.04 server instance on AWS Lightsail.
+Cost: $3.50/month
+
+#### Nginx
+// Web server
+sudo apt update
+sudo apt install nginx
+sudo ufw allow 22
+sudo ufw allow 'Nginx HTTP'
+sudo ufw enable
+sudo mkdir /var/www/ods/html
+sudo chmod 777 /var/www/ods/html
+
+sudo nano /etc/nginx/sites-available/default
+// change line "root /var/www/html" to "root /var/www/ods/html"
+
+sudo systemctl restart nginx
+
+#### PostgreSQL
+sudo apt install postgresql
+// allow PostgreSQL port in AWS Lightsail firewall
+On your local machine, back up the ods database as plaintext
+SCP it over to the AWS server with the script
+sudo psql -U postgres -h 127.0.0.1 -f ~/SQL/backup.sql
+
+## Run
+
+### Build React App and Deploy to Web Server
+npm run build
+./scripts/push_react.sh
+
+# Future Considerations
+
+## HTTPS Authentication
+Given a domain name, I could use LetsEncrypt to get a free HTTPS certificate.
+For this project, I don't want to pay for a domain name.
