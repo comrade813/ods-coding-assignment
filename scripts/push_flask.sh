@@ -1,0 +1,1 @@
+scp -i $1 -r ./backend/* ubuntu@54.144.233.30:backend

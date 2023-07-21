@@ -1,0 +1,42 @@
+.App {
+  text-align: center;
+}
+
+.header {
+  background-color: rgb(17, 23, 43);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: 2s
+}
+
+.header-small {
+  background-color: rgb(17, 23, 43);
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding-bottom: 5%;
+  transition: 2s
+}
+
+.title {
+  font-size: 100px;
+  padding: 20px;
+}
+
+.error {
+  padding-top: 10px;
+  font-size: 14px;
+  color: red;
+}
+
+.results {
+  text-align: center;
+  width: 100%;
+}
