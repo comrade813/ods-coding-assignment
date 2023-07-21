@@ -1,47 +1,20 @@
-# ODS Full Stack Coding Assignment
-
-## ✈️ Assignment Description
-A new flight reservation system is being commissioned and you are tasked with building this out. There will be multiple phases to this project, but you will be expected to deliver the first phase here. You are expected to build out the initial flight search feature. Users should be able to visit the application and view a list of flights based on search criteria. A data source is provided for you in the repo to put all of this together.
-
-## Flight Search Feature
-
-1. Allow the user to enter a station (`destination` or `origin`) to search flights. Display the results in a table.
-
-2. Provide an auto-suggest feature for station. A user should be able to see flights based on station code or location name as they're typing out the search terms similar to how Google works.
-
-   Example: A user wants to select flights to/from Jacksonville. The associated station code is JAX
-   
-       Case 1: User enters the keywords: Jack --> The user is presented with a list of suggestion(s)
-       Case 2: User enters the keywords: Jackson --> The user is presented with a list of suggestion(s)
-       Case 3: User enters the keywords: Jax --> The user is presented with a list of suggestion(s)
-   
-3. Provide two RESTful endpoints supporting the functionality listed in steps 1 and 2.
-
-4. You can be creative with this as however you'd like
-
-## Bonus Points (Not Required)
-1. Unit tests are created for your code and test the main logic you've put together, e.g. auto-suggest returns BNA when Nashville is the search term.
-
-## Datasource
-A zipped CSV file of flights is available in /data/flights.csv. Each row in the CSV file represents a flight.
-
-## Implementation
-
-### Preferred Tech Stack
-* Backend: Python, node.js, SpringBoot, or whatever you're comfortable with
-* Angular or other frontend framework (React, vue.js, next.js, etc.)
-* Docker (If you'd like to host it, try hosting it on Firebase or Netlify since there's a free tier with a small db setup)
-
-However, you may use other tech if you are more comfortable with something else. You can use any additional technologies/frameworks/DBs/libraries you would like to.
-
-### ✅ To submit your solution:
-* Clone this repo and push to a personal github repo and submit the link
-* Please update the README with how to run your app and your tech stack used and anything else that the reviewer may need to get started with your code. If you'd like to mention anything else about your code and logic, please note it here. We will be running your app locally to validate your work.
-* Return your solution within 5 business days, unless other directions provided.
-* Feel free to ask questions at any time. Questions are welcome!
-* Have fun with it! Your application can be as simple or complex as possible.
-
 # Solution
+
+## Summary
+I created a React/Typescript/Flask/PostgreSQL webapp running on a Ubuntu 22.04 server, hosted by Nginx.
+The server was created on AWS Lightsail, which also allowed me to give it a static public IP.
+
+## Technical Decisions
+
+### Why are some fields excluded?
+Fields such as id, flight id number, and the last updated time are not useful for users to know.
+
+### Why both to and from?
+It seemed like the most intuitive for users -- most airline websites are built this way.
+
+### Why use environment variables?
+Environment variables mask sensitive information, such as passwords, usernames, and IP addresses.
+They can also be used to easily differentiate hardcoded values between development and production environments.
 
 ## Setup
 
@@ -58,6 +31,7 @@ npm i --save react-select
 npm i --save axios
 
 #### Flask
+I already had all the Flask packages installed locally.
 
 #### PostgreSQL
 Open pgAdmin
@@ -82,6 +56,7 @@ sudo chmod 777 /var/www/ods/html
 
 sudo nano /etc/nginx/sites-available/default
 // change line "root /var/www/html" to "root /var/www/ods/html"
+// add in a couple lines to reverse-proxy, allowing HTTP requests to reach the Flask endpoints
 
 sudo systemctl restart nginx
 
@@ -92,13 +67,30 @@ On your local machine, back up the ods database as plaintext
 SCP it over to the AWS server with the script
 sudo psql -U postgres -h 127.0.0.1 -f ~/SQL/backup.sql
 
+#### Flask
+sudo apt install python3-pip
+sudo apt install python3-flask
+pip install Flask
+pip install flask-cors
+pip install python-dotenv
+pip install psycopg2-binary
+// fill out the necessary 
+fl
+
 ## Run
+
+### Flask
+// make sure that the .flaskenv and .env files are filled out correctly
+flask run
 
 ### Build React App and Deploy to Web Server
 npm run build
 ./scripts/push_react.sh
 
 # Future Considerations
+
+## Unit Testing
+Use Jest for the frontend and Python's unittest for the backend.
 
 ## HTTPS Authentication
 Given a domain name, I could use LetsEncrypt to get a free HTTPS certificate.
